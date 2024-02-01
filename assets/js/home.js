@@ -10,6 +10,8 @@ const secProcessSteps = 'https://portfolio.seasonsge.com/front_end/home_page/sec
 const secAudit = 'https://portfolio.seasonsge.com/front_end/home_page/sec_7/audit_send.php';
 const sec7 = 'https://portfolio.seasonsge.com/front_end/home_page/sec_7/view.php';
 const counters = 'https://portfolio.seasonsge.com/front_end/home_page/sec_8/view.php';
+const feedbackTitle = 'https://portfolio.seasonsge.com/front_end/home_page/customer_review/git.php';
+const feedbackCards = 'https://portfolio.seasonsge.com/front_end/home_page/customer_review/git_review.php';
 
 
 // Make a GET request using Axios
@@ -207,7 +209,7 @@ axios.get(counters).then(response=>{
     let res = response.data;
     for (let i = 0; i < res.length; i++) {
         document.getElementById('countersArea').innerHTML +=
-        `<div class="col-lg-4 col-md-4 col-sm-6">
+        `<div class="col-lg-4 col-md-4 col-sm-6 d-flex justify-content-center">
         <div class="single-counter-up-two">
             <div class="icon">
                 <img src="${res[i].image_url}">
@@ -218,5 +220,43 @@ axios.get(counters).then(response=>{
             </div>
         </div>
     </div>`;
+    }
+}).catch(err=>console.log(err))
+axios.get(feedbackTitle).then(response=>{
+    let res = response.data[0]
+    // console.log(res);
+    document.getElementById('feedbackTitleArea').innerHTML = 
+    `<span class="pre split-collab">${res.MainTitle_English}</span>
+    <h2 class="title split-collab position-relative">${res.AdditionalTitle1_English} <br>
+    ${res.AdditionalTitle2_English}</h2>`;
+}).catch(err=>console.log(err))
+axios.get(feedbackCards).then(response=>{
+    let res = response.data
+    console.log(res);
+    for (let i = 0; i < res.length; i++) {
+        document.getElementById('feedbackCardsArea').innerHTML +=
+        `<div class="col-sm-10 col-md-6 col-lg-6 col-xl-4">
+            <div class="single-testimonials-area">
+                <div class="quote-image">
+                    <img src="assets/images/testsimonials/logo/quote.png" alt="marketing">
+                </div>
+                <div class="logo d-flex justify-content-center">
+                    <img class="light" src="assets/images/testimonials/logo/01.svg" alt="testimonials">
+                    <img class="dark" src="${res[i].CompanyLogo}" alt="testimonials" width="80">
+                </div>
+                <p class="disc text-center">
+                    “${res[i].OpinionText_en}”
+                </p>
+                <div class="author-area justify-content-between text-end">
+                    <a href="#" class="avatar">
+                        <img src="${res[i].ReviewerImage}" alt="marketing" width="80">
+                    </a>
+                    <div class="information">
+                        <h6 class="title">${res[i].ReviewerName_en}</h6>
+                        <span>${res[i].ReviewerJobTitle_en}</span>
+                    </div>
+                </div>
+            </div>
+        </div>`;
     }
 }).catch(err=>console.log(err))
