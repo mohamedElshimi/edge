@@ -105,6 +105,14 @@ axios.get(sec5list).then(response=>{
     let res=response.data.data;
     
     for (let i = 0; i < res.length; i++) {
+        document.getElementById('serviceLinks').innerHTML +=
+        `<li class="nav-item sub-dropdown"><a class="nav-link page" href="service-single.html?id=${res[i].id}">${res[i].title_english}</a></li>`; 
+    }
+}).catch(err=>console.log(err))
+axios.get(sec5list).then(response=>{
+    let res=response.data.data;
+    
+    for (let i = 0; i < res.length; i++) {
         document.getElementById('sec5ListArea').innerHTML +=
         `<div class="swiper-slide">
             <div class="single-service-style-two">
